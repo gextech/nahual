@@ -1,0 +1,17 @@
+{
+  "name": "nahual",
+  "version": "0.0.0",
+  "description": " Run your acceptance tests with Yadda/Nightwatch",
+  "main": "lib/index.js",
+  "bin": {
+    "nahual": "bin/cli.js"
+  },
+  "dependencies": {
+    "nwrun": "0.0.1",
+    "y2nw": "0.0.4"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-parts": "^0.4.2"
+  }
+}
