@@ -10,5 +10,5 @@ node_js:
 before_script:
 - 'npm install -g grunt-cli coveralls'
 script:
-- './bin/cli.js spec/example --remote'
+- './bin/cli.js spec/example --remote --run saucelabs'
 - 'grunt test:parts && cat generated/lcov.info | coveralls'
