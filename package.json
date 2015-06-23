@@ -1,10 +1,10 @@
 {
-  "name": "nahual",
+  "name": "nawal",
   "version": "0.0.0",
   "description": " Run your acceptance tests with Yadda/Nightwatch",
   "main": "lib/index.js",
   "bin": {
-    "nahual": "bin/cli.js"
+    "nawal": "bin/cli.js"
   },
   "dependencies": {
     "chromedriver": "^2.15.1",
