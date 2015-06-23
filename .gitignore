@@ -2,6 +2,7 @@
 *.zip
 *.tgz
 *.log
+selenium*
 .DS_Store
 
 /tmp
