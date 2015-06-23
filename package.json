@@ -7,6 +7,7 @@
     "nahual": "bin/cli.js"
   },
   "dependencies": {
+    "chromedriver": "^2.15.1",
     "nwrun": "0.0.1",
     "y2nw": "0.0.4"
   },
