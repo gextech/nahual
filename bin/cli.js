@@ -20,6 +20,11 @@ var argv = yargs
     type: 'boolean',
     describe: 'Show this help'
   })
+  .option('r', {
+    alias: 'run',
+    type: 'string',
+    describe: 'Target for Nightwatch'
+  })
   .argv;
 
 if (argv.help) {
