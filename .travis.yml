@@ -7,5 +7,8 @@ addons:
 language: node_js
 node_js:
 - 0.1
+before_script:
+- 'npm install -g grunt-cli coveralls'
 script:
-- ./bin/cli.js spec/example --remote
+- './bin/cli.js spec/example --remote'
+- 'grunt test:parts && cat generated/lcov.info | coveralls'
