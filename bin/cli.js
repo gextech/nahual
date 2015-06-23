@@ -30,7 +30,7 @@ if (argv.help) {
 try {
   runner(argv, {
     src: path.resolve(cwd, argv._[0] || 'test'),
-    dest: path.resolve(cwd, argv._[1] || 'build')
+    dest: path.resolve(cwd, argv._[1] || 'generated')
   }, exit);
 } catch (e) {
   console.log('Error:', e.message || e.toString());
