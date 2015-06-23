@@ -20,10 +20,20 @@ var argv = yargs
     type: 'boolean',
     describe: 'Show this help'
   })
-  .option('r', {
-    alias: 'run',
+  .option('f', {
+    alias: 'force',
+    type: 'boolean',
+    describe: 'Force selenium-server download'
+  })
+  .option('t', {
+    alias: 'target',
     type: 'string',
-    describe: 'Target for Nightwatch'
+    describe: 'Set default target for test'
+  })
+  .option('b', {
+    alias: 'browser',
+    type: 'string',
+    describe: 'Set default browser for test'
   })
   .argv;
 
