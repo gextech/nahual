@@ -33,6 +33,6 @@ try {
     dest: path.resolve(cwd, argv._[1] || 'generated')
   }, exit);
 } catch (e) {
-  console.log('Error:', e.message || e.toString());
+  process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
   exit(1);
 }
