@@ -1,5 +1,8 @@
 {
   "test_settings": {
+    "local": {
+      "standalone": true
+    },
     "saucelabs": {
       "silent": true,
       "selenium_host": "localhost",
