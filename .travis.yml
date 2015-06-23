@@ -1,0 +1,11 @@
+env:
+  global:
+  - secure: RdOm3bneof0oP3BA6Tq/a4+MrjdjOi9ZQ9pB6ciClTOmVZKfIOmRr/yQ2JIHU0jXMoWbZVEwxVbtfW+kdvwWicEktXJStTGDaop2bDZ3snInTT3GjFSFtF1oTSv+rfhJCBj/6p/uXkeu/qUIFfCZASPm4LX6bg6gs2Y7taGlsBU=
+  - secure: gapbisL61+eGzlple+7ZIo3LixOIJ6xALj/Fkepy23HcUlR3xRhOUo+wFIfpOOOxVm91prIpCLoUdJAW4Ow87GvhUH/SpYbxlC3B9hTkLc01EtVElAiCLJwASOAnnfGISeasUPTg/jRB4wiKts86NAd/v4abTSPUYtdaPXJ8wtw=
+addons:
+  sauce_connect: true
+language: node_js
+node_js:
+- 0.1
+script:
+- ./bin/cli.js spec/example --remote
