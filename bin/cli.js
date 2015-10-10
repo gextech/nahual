@@ -20,11 +20,6 @@ var argv = yargs
     type: 'boolean',
     describe: 'Show this help'
   })
-  .option('f', {
-    alias: 'force',
-    type: 'boolean',
-    describe: 'Force selenium-server download'
-  })
   .option('t', {
     alias: 'target',
     type: 'string',
@@ -33,12 +28,22 @@ var argv = yargs
   .option('b', {
     alias: 'browser',
     type: 'string',
-    describe: 'Set default browser for test'
+    describe: 'Run tests on the specified browser(s)'
   })
-  .option('s', {
+  .option('S', {
     alias: 'server',
     type: 'boolean',
-    describe: 'Starts a static-server for test'
+    describe: 'Starts a static-server from `process.cwd()`'
+  })
+  .option('s', {
+    alias: 'standalone',
+    type: 'boolean',
+    describe: 'Starts a selenium-server-standalone instance'
+  })
+  .option('f', {
+    alias: 'force',
+    type: 'boolean',
+    describe: 'Force the *.jar download (use with --standalone)'
   })
   .argv;
 
