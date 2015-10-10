@@ -1,6 +1,14 @@
+# Nahual
+
 [![Build Status](https://travis-ci.org/gextech/nahual.png?branch=master)](https://travis-ci.org/gextech/nahual) [![NPM version](https://badge.fury.io/js/nahual.png)](http://badge.fury.io/js/nahual) [![Coverage Status](https://coveralls.io/repos/gextech/nahual/badge.png?branch=master)](https://coveralls.io/r/gextech/nahual?branch=master)
 
-**Nawal** will glue [y2nw](https://github.com/gextech/y2nw) and [nwrun](https://github.com/gextech/nwrun) for you.
+![nagual](https://dl.dropboxusercontent.com/u/2726997/img/nagual.jpg)
+
+```
+$ npm install -g nahual
+```
+
+**Nahual** will glue [y2nw](https://github.com/gextech/y2nw) and [nwrun](https://github.com/gextech/nwrun) for you.
 
 You can install `nahual` locally as library or globally as CLI:
 
