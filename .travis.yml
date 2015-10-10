@@ -11,4 +11,4 @@ before_script:
 - 'npm install -g grunt-cli coveralls'
 script:
 - './bin/cli.js spec/example --target saucelabs'
-- 'grunt test:parts && cat generated/lcov.info | coveralls'
+- 'grunt spec && cat generated/reports/spec/lcov.info | coveralls'

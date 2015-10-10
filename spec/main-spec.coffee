@@ -29,7 +29,7 @@ describe 'Standalone runner', ->
         src: 'spec/example'
         dest: 'testing_only'
 
-      runner null, config, done
+      runner null, config, -> done()
 
     it 'should callback to y2nw()', ->
       expect(mock.fn.y2nw.callCount).toBe 1
