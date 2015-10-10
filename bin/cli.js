@@ -35,6 +35,11 @@ var argv = yargs
     type: 'string',
     describe: 'Set default browser for test'
   })
+  .option('s', {
+    alias: 'server',
+    type: 'boolean',
+    describe: 'Starts a static-server for test'
+  })
   .argv;
 
 if (argv.help) {
@@ -42,12 +47,41 @@ if (argv.help) {
   exit();
 }
 
-try {
-  runner(argv, {
-    src: path.resolve(cwd, argv._[0] || 'test'),
-    dest: path.resolve(cwd, argv._[1] || 'generated')
-  }, exit);
-} catch (e) {
-  process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
-  exit(1);
+function run(next) {
+  try {
+    runner(argv, {
+      src: path.resolve(cwd, argv._[0] || 'test'),
+      dest: path.resolve(cwd, argv._[1] || 'generated')
+    }, next);
+  } catch (e) {
+    process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
+    exit(1);
+  }
+}
+
+if (argv.server) {
+  var express = require('express'),
+      newport = require('newport');
+
+  newport(function(err, port){
+    if (err) {
+      process.stderr.write((err.message || err.toString()) + '\n');
+      exit(2);
+    }
+
+    var app = express();
+
+    app.use(express.static(cwd));
+
+    var server = app.listen(port, function () {
+      process.env.PORT = port;
+
+      run(function(status) {
+        server.close();
+        exit(status);
+      });
+    });
+  });
+} else {
+  run(exit);
 }
