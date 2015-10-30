@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 'use strict';
 
 var exit = process.exit.bind(process);
@@ -30,11 +28,6 @@ var argv = yargs
     type: 'string',
     describe: 'Run tests on the specified browser(s)'
   })
-  .option('S', {
-    alias: 'server',
-    type: 'boolean',
-    describe: 'Starts a static-server from `process.cwd()`'
-  })
   .option('s', {
     alias: 'standalone',
     type: 'boolean',
@@ -52,41 +45,12 @@ if (argv.help) {
   exit();
 }
 
-function run(next) {
-  try {
-    runner(argv, {
-      src: path.resolve(cwd, argv._[0] || 'test'),
-      dest: path.resolve(cwd, argv._[1] || 'generated')
-    }, next);
-  } catch (e) {
-    process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
-    exit(1);
-  }
-}
-
-if (argv.server) {
-  var express = require('express'),
-      newport = require('newport');
-
-  newport(function(err, port){
-    if (err) {
-      process.stderr.write((err.message || err.toString()) + '\n');
-      exit(2);
-    }
-
-    var app = express();
-
-    app.use(express.static(cwd));
-
-    var server = app.listen(port, function () {
-      process.env.PORT = port;
-
-      run(function(status) {
-        server.close();
-        exit(status);
-      });
-    });
-  });
-} else {
-  run(exit);
+try {
+  runner(argv, {
+    src: path.resolve(cwd, argv._[0] || 'test'),
+    dest: path.resolve(cwd, argv._[1] || 'generated')
+  }, exit);
+} catch (e) {
+  process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
+  exit(1);
 }
