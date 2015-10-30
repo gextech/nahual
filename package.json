@@ -7,10 +7,10 @@
     "nahual": "bin/nahual"
   },
   "dependencies": {
-    "chromedriver": "^2.15.1",
+    "chromedriver": "^2.19.0",
     "nwrun": ">=0.0.9",
     "y2nw": ">=0.0.8",
-    "yargs": "^3.12.0"
+    "yargs": "^3.29.0"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
