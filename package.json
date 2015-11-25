@@ -10,8 +10,8 @@
     "chromedriver": "^2.15.1",
     "express": "^4.13.3",
     "newport": "^1.0.2",
-    "nwrun": ">=0.0.9",
-    "y2nw": ">=0.0.8",
+    "nwrun": ">=0.0.14",
+    "y2nw": ">=0.0.11",
     "yargs": "^3.12.0"
   },
   "devDependencies": {
