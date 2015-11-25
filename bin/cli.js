@@ -8,40 +8,46 @@ var pkg = require('../package.json'),
     runner = require('../lib');
 
 var yargs = require('yargs'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 var cwd = process.cwd();
 
 var argv = yargs
   .version(pkg.version)
-  .alias('v', 'version')
-  .option('h', {
-    alias: 'help',
+  .option('help', {
     type: 'boolean',
     describe: 'Show this help'
   })
-  .option('t', {
-    alias: 'target',
+  .option('target', {
     type: 'string',
     describe: 'Set default target for test'
   })
-  .option('b', {
-    alias: 'browser',
+  .option('header', {
+    type: 'string',
+    describe: 'Header file for prepend (.coffee)'
+  })
+  .option('steps', {
+    type: 'string',
+    describe: 'Additional steps-directory to parse'
+  })
+  .option('lang', {
+    type: 'string',
+    describe: 'Specify the language used all sources'
+  })
+  .option('browser', {
     type: 'string',
     describe: 'Run tests on the specified browser(s)'
   })
-  .option('S', {
-    alias: 'server',
+  .option('server', {
     type: 'boolean',
     describe: 'Starts a static-server from `process.cwd()`'
   })
-  .option('s', {
-    alias: 'standalone',
+  .option('standalone', {
     type: 'boolean',
     describe: 'Starts a selenium-server-standalone instance'
   })
-  .option('f', {
-    alias: 'force',
+  .option('force', {
     type: 'boolean',
     describe: 'Force the *.jar download (use with --standalone)'
   })
@@ -54,10 +60,33 @@ if (argv.help) {
 
 function run(next) {
   try {
-    runner(argv, {
+    var options = {
       src: path.resolve(cwd, argv._[0] || 'test'),
       dest: path.resolve(cwd, argv._[1] || 'generated')
-    }, next);
+    };
+
+    delete argv._;
+    delete argv.$0;
+
+    if (argv.steps) {
+      options.steps = path.resolve(cwd, argv.steps);
+    }
+
+    if (argv.header) {
+      options.header = fs.readFileSync(path.resolve(cwd, argv.header)).toString();
+    }
+
+    options.header = [
+      'ARGV = ' + JSON.stringify(argv),
+      'ENV = ' + JSON.stringify(process.env),
+      options.header || ''
+    ].join('\n');
+
+    if (argv.lang) {
+      options.language = argv.lang;
+    }
+
+    runner(argv, options, next);
   } catch (e) {
     process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
     exit(1);
@@ -79,7 +108,7 @@ if (argv.server) {
     app.use(express.static(cwd));
 
     var server = app.listen(port, function () {
-      process.env.PORT = port;
+      process.env.NEWPORT = port;
 
       run(function(status) {
         server.close();
