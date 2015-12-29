@@ -8,8 +8,8 @@
   },
   "dependencies": {
     "chromedriver": "^2.19.0",
-    "nwrun": ">=0.0.9",
-    "y2nw": ">=0.0.8",
+    "nwrun": ">=0.0.14",
+    "y2nw": ">=0.0.11",
     "yargs": "^3.29.0"
   },
   "devDependencies": {

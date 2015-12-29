@@ -6,25 +6,34 @@ var pkg = require('../package.json'),
     runner = require('../lib');
 
 var yargs = require('yargs'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 var cwd = process.cwd();
 
 var argv = yargs
   .version(pkg.version)
-  .alias('v', 'version')
-  .option('h', {
-    alias: 'help',
+  .option('help', {
     type: 'boolean',
     describe: 'Show this help'
   })
-  .option('t', {
-    alias: 'target',
+  .option('target', {
     type: 'string',
     describe: 'Set default target for test'
   })
-  .option('b', {
-    alias: 'browser',
+  .option('header', {
+    type: 'string',
+    describe: 'Header file for prepend (.coffee)'
+  })
+  .option('steps', {
+    type: 'string',
+    describe: 'Additional steps-directory to parse'
+  })
+  .option('lang', {
+    type: 'string',
+    describe: 'Specify the language used all sources'
+  })
+  .option('browser', {
     type: 'string',
     describe: 'Run tests on the specified browser(s)'
   })
@@ -33,8 +42,7 @@ var argv = yargs
     type: 'boolean',
     describe: 'Starts a selenium-server-standalone instance'
   })
-  .option('f', {
-    alias: 'force',
+  .option('force', {
     type: 'boolean',
     describe: 'Force the *.jar download (use with --standalone)'
   })
