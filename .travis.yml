@@ -6,12 +6,12 @@ addons:
   sauce_connect: true
 language: node_js
 node_js:
-- 0.1
+- 0.10
 - 0.11
 - 0.12
-- 0.4
+- 4
 before_script:
 - 'npm install -g grunt-cli coveralls'
 script:
-- './bin/cli.js spec/example --target saucelabs'
+- './bin/nahual --target saucelabs --tag remote'
 - 'grunt spec && cat generated/reports/spec/lcov.info | coveralls'
