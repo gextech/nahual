@@ -6,7 +6,8 @@ var pkg = require('../package.json'),
     runner = require('../lib');
 
 var minimist = require('minimist'),
-    path = require('path');
+    path = require('path'),
+    fs = require('fs');
 
 var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
@@ -44,7 +45,8 @@ if (argv.version) {
 try {
   runner(argv, {
     src: path.resolve(cwd, argv._[0] || 'test'),
-    dest: path.resolve(cwd, argv._[1] || 'generated')
+    dest: path.resolve(cwd, argv._[1] || 'generated'),
+    header: argv.prelude ? fs.readFileSync(argv.prelude) : ''
   }, exit);
 } catch (e) {
   process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
