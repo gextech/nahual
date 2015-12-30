@@ -9,7 +9,6 @@
   "dependencies": {
     "chromedriver": "^2.20.0",
     "minimist": "^1.2.0",
-    "newport": "^1.0.2",
     "nwrun": ">=0.0.14",
     "y2nw": ">=0.0.11"
   },

@@ -13,6 +13,5 @@ node_js:
 before_script:
 - 'npm install -g grunt-cli coveralls'
 script:
-- './bin/nahual --target saucelabs --tag remote'
-- "./bin/nahual --target saucelabs --tag local -- python -m SimpleHTTPServer '$NW_PORT'"
+- './bin/nahual --target saucelabs -- python -m SimpleHTTPServer"
 - 'grunt spec && cat generated/reports/spec/lcov.info | coveralls'
