@@ -5,53 +5,34 @@ var exit = process.exit.bind(process);
 var pkg = require('../package.json'),
     runner = require('../lib');
 
-var yargs = require('yargs'),
+var minimist = require('minimist'),
     path = require('path');
 
-var cwd = process.cwd();
+var cwd = process.cwd(),
+    argv = minimist(process.argv.slice(2), {
+      '--': true,
+      boolean: ['help', 'force', 'standalone'],
+      string: ['target', 'prelude', 'steps', 'lang', 'browser']
+    });
 
-var argv = yargs
-  .version(pkg.version)
-  .option('help', {
-    type: 'boolean',
-    describe: 'Show this help'
-  })
-  .option('target', {
-    type: 'string',
-    describe: 'Set default target for test'
-  })
-  .option('header', {
-    type: 'string',
-    describe: 'Header file for prepend (.coffee)'
-  })
-  .option('steps', {
-    type: 'string',
-    describe: 'Additional steps-directory to parse'
-  })
-  .option('lang', {
-    type: 'string',
-    describe: 'Specify the language used all sources'
-  })
-  .option('browser', {
-    type: 'string',
-    describe: 'Run tests on the specified browser(s)'
-  })
-  .option('server', {
-    type: 'string',
-    describe: 'Run shell command as a testing support server'
-  })
-  .option('standalone', {
-    type: 'boolean',
-    describe: 'Starts a selenium-server-standalone instance'
-  })
-  .option('force', {
-    type: 'boolean',
-    describe: 'Force the *.jar download (use with --standalone)'
-  })
-  .argv;
+process.name = 'nahual';
 
 if (argv.help) {
-  yargs.showHelp();
+  console.log(function() {/**---
+Usage:
+  nahual [SRC] [DEST] [OPTIONS] [-- COMMAND]
+
+Options:
+  --standalone  Spawn a local selenium-server
+  --force       Always download the selenium-server
+  --browser     Use a different browser for tests
+  --prelude     Prepends a .coffee file before all steps
+  --target      Nightwatch's target to execute
+  --steps       Path for scanning additional steps
+  --lang        Use a different language for all sources
+
+The given command after -- will be spawned before running the tests
+---*/}.toString().match(/---([\s\S]+)---/)[1].trim());
   exit();
 }
 
