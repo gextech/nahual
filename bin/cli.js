@@ -11,7 +11,7 @@ var minimist = require('minimist'),
 var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
       '--': true,
-      boolean: ['help', 'force', 'standalone'],
+      boolean: ['version', 'help', 'force', 'standalone'],
       string: ['target', 'prelude', 'steps', 'lang', 'browser']
     });
 
@@ -33,6 +33,11 @@ Options:
 
 The given command after -- will be spawned before running the tests
 ---*/}.toString().match(/---([\s\S]+)---/)[1].trim());
+  exit();
+}
+
+if (argv.version) {
+  console.log(pkg.name + ' v' + pkg.version);
   exit();
 }
 
