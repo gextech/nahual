@@ -6,8 +6,7 @@ var pkg = require('../package.json'),
     runner = require('../lib');
 
 var yargs = require('yargs'),
-    path = require('path'),
-    fs = require('fs');
+    path = require('path');
 
 var cwd = process.cwd();
 
