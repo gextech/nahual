@@ -11,5 +11,5 @@ node_js:
 before_script:
 - 'npm install -g grunt-cli coveralls'
 script:
-- './bin/nahual --target saucelabs -- python -m SimpleHTTPServer"
+- './bin/nahual --target saucelabs -- python -m SimpleHTTPServer'
 - 'grunt spec && cat generated/reports/spec/lcov.info | coveralls'
