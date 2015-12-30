@@ -7,26 +7,33 @@ mock = (id) ->
     mock.fn[id].config = config
     mock.fn[id]()
 
-runner = proxyquire '../lib',
-  y2nw: mock('y2nw')
-  nwrun: mock('nwrun')
-
 describe 'Standalone runner', ->
   beforeEach ->
     mock.fn = {}
 
-  it 'should fail without arguments', ->
-    expect(runner).toThrow('invalid undefined directory')
-    expect(-> runner(->)).toThrow('invalid undefined directory')
-    expect(-> runner(null, ->)).toThrow('invalid undefined directory')
+  describe 'Pre validations', ->
+    runner = require('../lib')
 
-  it 'should fail on invalid src-directory', ->
-    expect(-> runner(null, src: 'not_exists')).toThrow('invalid "not_exists" directory')
+    it 'should fail without arguments', ->
+      expect(runner).toThrow('invalid undefined directory')
+      expect(-> runner(->)).toThrow('invalid undefined directory')
+      expect(-> runner(null, ->)).toThrow('invalid undefined directory')
+
+    it 'should fail on invalid src-directory', ->
+      expect(-> runner(null, src: 'not_exists')).toThrow('invalid "not_exists" directory')
 
   describe 'Callback dependencies', ->
+    runner = proxyquire '../lib',
+      fs:
+        existsSync: -> true
+        statSync: ->
+          isDirectory: -> true
+      y2nw: mock('y2nw')
+      nwrun: mock('nwrun')
+
     beforeEach (done) ->
       config =
-        src: 'spec/example'
+        src: 'some/path'
         dest: 'testing_only'
 
       runner null, config, -> done()
