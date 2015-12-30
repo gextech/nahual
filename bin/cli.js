@@ -37,8 +37,11 @@ var argv = yargs
     type: 'string',
     describe: 'Run tests on the specified browser(s)'
   })
-  .option('s', {
-    alias: 'standalone',
+  .option('server', {
+    type: 'string',
+    describe: 'Run shell command as a testing support server'
+  })
+  .option('standalone', {
     type: 'boolean',
     describe: 'Starts a selenium-server-standalone instance'
   })
