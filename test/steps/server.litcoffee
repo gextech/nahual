@@ -3,7 +3,7 @@ Given loaded "$SRC".
 
     (src) ->
       @browser
-        .url('http://localhost:' + process.env.NW_PORT + src)
+        .url('http://localhost:8000' + src)
         .waitForElementVisible('body', 1000)
         .pause(3000)
 
