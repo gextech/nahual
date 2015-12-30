@@ -1,6 +1,6 @@
 {
   "name": "nahual",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Run your acceptance tests with Yadda/Nightwatch",
   "main": "lib/index.js",
   "bin": {
