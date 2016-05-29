@@ -15,12 +15,12 @@ describe 'Standalone runner', ->
     runner = require('../lib')
 
     it 'should fail without arguments', ->
-      expect(runner).toThrow('invalid undefined directory')
-      expect(-> runner(->)).toThrow('invalid undefined directory')
-      expect(-> runner(null, ->)).toThrow('invalid undefined directory')
+      expect(runner).toThrow()
+      expect(-> runner(->)).toThrow()
+      expect(-> runner(null, ->)).toThrow()
 
     it 'should fail on invalid src-directory', ->
-      expect(-> runner(null, src: 'not_exists')).toThrow('invalid "not_exists" directory')
+      expect(-> runner(null, src: 'not_exists')).toThrow()
 
   describe 'Callback dependencies', ->
     runner = proxyquire '../lib',
