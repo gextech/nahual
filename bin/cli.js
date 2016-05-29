@@ -1,5 +1,3 @@
-'use strict';
-
 var exit = process.exit.bind(process);
 
 var pkg = require('../package.json'),
