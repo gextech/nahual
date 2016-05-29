@@ -6,15 +6,25 @@
   "bin": {
     "nahual": "bin/nahual"
   },
+  "scripts": {
+    "dev": "jasmine-node spec --coffee --verbose --autoTest --watchFolders lib",
+    "dev:lint": "eslint lib",
+    "dev:spec": "jasmine-node spec --coffee --noStackTrace --captureExceptions",
+    "cover": "istanbul cover --root lib --x '**/spec/**' -- jasmine-node --coffee spec",
+    "cover:up": "codecov --file=coverage/lcov.info --disable=gcov -e TRAVIS_NODE_VERSION",
+    "test": "npm run dev:lint && npm run dev:spec"
+  },
   "dependencies": {
-    "chromedriver": "^2.20.0",
     "minimist": "^1.2.0",
-    "nwrun": ">=0.0.14",
-    "y2nw": ">=0.0.11"
+    "nwrun": "^0.2.1",
+    "y2nw": "0.0.11"
   },
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-parts": "^0.5.7",
+    "codecov": "^1.0.1",
+    "eslint": "^2.9.0",
+    "istanbul": "^0.4.3",
+    "jasmine-node": "2.0.0-beta4",
+    "nightwatch": "^0.9.1",
     "proxyquire": "^1.5.0",
     "sinon": "^1.15.3"
   }
