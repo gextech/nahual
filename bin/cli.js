@@ -10,7 +10,7 @@ var minimist = require('minimist'),
 var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
       '--': true,
-      boolean: ['version', 'help', 'force', 'standalone', 'init', 'with-steps'],
+      boolean: ['version', 'help', 'force', 'standalone', 'with-steps'],
       string: ['target', 'prelude', 'steps', 'lang', 'browser', 'feature'],
       alias: {
         h: 'help',
@@ -43,7 +43,6 @@ Options:
   -l, --lang        Use a different language for all sources
 
 Tasks:
-      --init        Adds some feature and step samples
   -F, --feature     Adds a single feature with boilerplate
   -S, --with-steps  Adds required steps from given --feature
 
@@ -58,7 +57,7 @@ if (argv.version) {
 }
 
 try {
-  if (argv.init || argv.feature) {
+  if (argv.feature) {
     require('../lib/tasks')(argv);
     exit();
   }
