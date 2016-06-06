@@ -15,6 +15,7 @@
     "test": "npm run dev:lint && npm run dev:spec"
   },
   "dependencies": {
+    "fs-extra": "^0.30.0",
     "minimist": "^1.2.0",
     "nwrun": "^0.2.1",
     "y2nw": "0.0.11"
