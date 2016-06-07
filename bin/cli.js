@@ -11,10 +11,11 @@ var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
       '--': true,
       boolean: ['version', 'help', 'force', 'standalone', 'with-steps'],
-      string: ['target', 'prelude', 'steps', 'lang', 'browser', 'feature'],
+      string: ['target', 'prelude', 'steps', 'lang', 'browser', 'feature', 'hooks'],
       alias: {
         h: 'help',
         s: 'standalone',
+        x: 'hooks',
         f: 'force',
         b: 'browser',
         p: 'prelude',
@@ -35,6 +36,7 @@ Usage:
 
 Options:
   -s, --standalone  Spawn a local selenium-server
+  -x, --hooks       Load modules as external hooks
   -f, --force       Always download the selenium-server
   -b, --browser     Use a different browser for tests
   -p, --prelude     Prepends the given script before all steps
