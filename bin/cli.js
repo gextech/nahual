@@ -10,8 +10,8 @@ var minimist = require('minimist'),
 var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
       '--': true,
-      boolean: ['version', 'help', 'force', 'standalone', 'with-steps'],
-      string: ['target', 'prelude', 'steps', 'lang', 'browser', 'feature', 'hooks'],
+      boolean: ['version', 'help', 'force', 'standalone'],
+      string: ['target', 'prelude', 'steps', 'lang', 'browser', 'hooks'],
       alias: {
         h: 'help',
         s: 'standalone',
@@ -36,17 +36,13 @@ Usage:
 
 Options:
   -s, --standalone  Spawn a local selenium-server
-  -x, --hooks       Load modules as external hooks
   -f, --force       Always download the selenium-server
-  -b, --browser     Use a different browser for tests
-  -p, --prelude     Prepends the given script before all steps
-  -t, --target      Nightwatch's target to execute
-  -d, --steps       Path for scanning additional steps
-  -l, --lang        Use a different language for all sources
-
-Tasks:
-  -F, --feature     Adds a single feature with boilerplate
-  -S, --with-steps  Adds required steps from given --feature
+  -x, --hooks       Load modules as external hooks (e.g. -x dayguard)
+  -b, --browser     Use a different browser for tests (e.g. -b safari)
+  -p, --prelude     Prepends the given script before all steps (e.g. -p ./runtime.js)
+  -t, --target      Nightwatch's target to execute (e.g. -t integration)
+  -d, --steps       Path for scanning additional steps (e.g. -d ./custom/steps)
+  -l, --lang        Use a different language for all sources (e.g. -l Spanish)
 
 The given command after -- will be spawned before running the tests
 ---*/}.toString().match(/---([\s\S]+)---/)[1].trim());
@@ -59,11 +55,6 @@ if (argv.version) {
 }
 
 try {
-  if (argv.feature) {
-    require('../lib/tasks')(argv);
-    exit();
-  }
-
   runner(argv, {
     src: path.resolve(cwd, argv._[0] || 'test'),
     dest: path.resolve(cwd, argv._[1] || 'generated'),
