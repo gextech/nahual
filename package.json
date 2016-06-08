@@ -17,15 +17,15 @@
   "dependencies": {
     "fs-extra": "^0.30.0",
     "minimist": "^1.2.0",
-    "nwrun": "^0.2.1",
-    "y2nw": "0.0.11"
+    "nwrun": "^0.2.2",
+    "y2nw": "^0.1.0"
   },
   "devDependencies": {
     "codecov": "^1.0.1",
-    "eslint": "^2.9.0",
+    "eslint": "^2.11.1",
     "istanbul": "^0.4.3",
     "jasmine-node": "2.0.0-beta4",
-    "nightwatch": "^0.9.1",
+    "nightwatch": "^0.9.3",
     "proxyquire": "^1.5.0",
     "sinon": "^1.15.3"
   }
