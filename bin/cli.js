@@ -11,19 +11,17 @@ var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
       '--': true,
       boolean: ['version', 'help', 'force', 'standalone'],
-      string: ['target', 'require', 'steps', 'lang', 'browser', 'hooks'],
+      string: ['target', 'require', 'steps', 'language', 'browser', 'hooks'],
       alias: {
         h: 'help',
-        s: 'standalone',
-        x: 'hooks',
-        f: 'force',
-        b: 'browser',
-        r: 'require',
-        t: 'target',
-        d: 'steps',
-        l: 'language',
-        F: 'feature',
-        S: 'with-steps'
+        F: 'force',
+        T: 'target',
+        B: 'browser',
+        D: 'steps',
+        X: 'hooks',
+        R: 'require',
+        L: 'language',
+        S: 'standalone'
       }
     });
 
@@ -32,19 +30,21 @@ process.name = 'nahual';
 if (argv.help) {
   console.log(function() {/**---
 Usage:
-  nahual [SRC] [DEST] [OPTIONS] [-- COMMAND]
+  nahual [SRC] [DEST] [OPTIONS] [NIGHTWATCH OPTIONS] [-- COMMAND]
 
 Options:
-  -s, --standalone  Spawn a local selenium-server
-  -f, --force       Always download the selenium-server
-  -x, --hooks       Load modules as external hooks (e.g. -x dayguard)
-  -b, --browser     Use a different browser for tests (e.g. -b safari)
-  -r, --require     Requires the given script before all steps (e.g. -p ./runtime.js)
-  -t, --target      Nightwatch's target to execute (e.g. -t integration)
-  -d, --steps       Path for scanning additional steps (e.g. -d ./custom/steps)
-  -l, --lang        Use a different language for all sources (e.g. -l Spanish)
+  -F, --force       Always download the selenium-server
+  -T, --target      Nightwatch's target to execute (e.g. -t integration)
+  -B, --browser     Use a different browser for tests (e.g. -b safari)
+  -D, --steps       Path for scanning additional steps (e.g. -d ./custom/steps)
+  -X, --hooks       Load modules as external hooks (e.g. -x dayguard)
+  -R, --require     Requires the given script before all steps (e.g. -p ./runtime.js)
+  -L, --language    Use a different language for all sources (e.g. -l Spanish)
+  -S, --standalone  Spawn a local selenium-server
 
-The given command after -- will be spawned before running the tests
+The given command after -- will be spawned before running the tests.
+
+Also, Nightwatch's CLI options are fully supported as-is.
 ---*/}.toString().match(/---([\s\S]+)---/)[1].trim());
   exit();
 }
