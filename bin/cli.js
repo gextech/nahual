@@ -11,14 +11,14 @@ var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
       '--': true,
       boolean: ['version', 'help', 'force', 'standalone'],
-      string: ['target', 'prelude', 'steps', 'lang', 'browser', 'hooks'],
+      string: ['target', 'require', 'steps', 'lang', 'browser', 'hooks'],
       alias: {
         h: 'help',
         s: 'standalone',
         x: 'hooks',
         f: 'force',
         b: 'browser',
-        p: 'prelude',
+        r: 'require',
         t: 'target',
         d: 'steps',
         l: 'language',
@@ -39,7 +39,7 @@ Options:
   -f, --force       Always download the selenium-server
   -x, --hooks       Load modules as external hooks (e.g. -x dayguard)
   -b, --browser     Use a different browser for tests (e.g. -b safari)
-  -p, --prelude     Prepends the given script before all steps (e.g. -p ./runtime.js)
+  -r, --require     Requires the given script before all steps (e.g. -p ./runtime.js)
   -t, --target      Nightwatch's target to execute (e.g. -t integration)
   -d, --steps       Path for scanning additional steps (e.g. -d ./custom/steps)
   -l, --lang        Use a different language for all sources (e.g. -l Spanish)
@@ -54,11 +54,25 @@ if (argv.version) {
   exit();
 }
 
+var fixedRequires = (Array.isArray(argv.require) ? argv.require : argv.require ? [argv.require] : [])
+  .map(function(file) {
+    var test = path.resolve(file);
+
+    if (fs.existsSync(test)) {
+      return test;
+    }
+
+    return file;
+  });
+
 try {
   runner(argv, {
     src: path.resolve(cwd, argv._[0] || 'test'),
     dest: path.resolve(cwd, argv._[1] || 'generated'),
-    header: argv.prelude ? fs.readFileSync(argv.prelude) : ''
+    prelude: fixedRequires.map(function(moduleName) {
+      // preprend require-syntax only
+      return 'require(' + JSON.stringify(moduleName) + ')';
+    }).join('\n')
   }, exit);
 } catch (e) {
   process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
