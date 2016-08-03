@@ -66,10 +66,15 @@ var fixedRequires = (Array.isArray(argv.require) ? argv.require : argv.require ?
   });
 
 try {
+  var _env = [
+    'process.env.NODE_ENV=' + (process.env.node_ENV || 'spec'),
+    'process.env.PORT=' + (process.env.PORT || 8081)
+  ].join('\n');
+
   runner(argv, {
     src: path.resolve(cwd, argv._[0] || 'test'),
     dest: path.resolve(cwd, argv._[1] || 'generated'),
-    prelude: fixedRequires.map(function(moduleName) {
+    prelude: _env + '\n' + fixedRequires.map(function(moduleName) {
       // preprend require-syntax only
       return 'require(' + JSON.stringify(moduleName) + ')';
     }).join('\n')
