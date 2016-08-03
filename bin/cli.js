@@ -66,9 +66,12 @@ var fixedRequires = (Array.isArray(argv.require) ? argv.require : argv.require ?
   });
 
 try {
+  process.env.NODE_ENV = process.env.NODE_ENV || 'spec';
+  process.env.PORT = process.env.PORT || 8081;
+
   var _env = [
-    'process.env.NODE_ENV=' + (process.env.node_ENV || '"spec"'),
-    'process.env.PORT=' + (process.env.PORT || 8081)
+    'process.env.NODE_ENV=' + JSON.stringify(process.env.NODE_ENV),
+    'process.env.PORT=' + process.env.PORT
   ].join('\n');
 
   runner(argv, {
