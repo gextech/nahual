@@ -43,4 +43,4 @@ Then "$SELECTOR" should contain "$OUTPUT".
 
     (selector, output) ->
       @browser
-        .assert.containsText(selector, result)
+        .assert.containsText(selector, output)
