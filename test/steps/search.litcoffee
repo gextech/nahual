@@ -1,4 +1,3 @@
-
     searchEngine = null
 
     setEngine = (name) ->
@@ -32,3 +31,16 @@ Then should I see "$OUTPUT".
     (result) ->
       @browser
         .assert.containsText(searchEngine.output, result)
+
+Given loaded "$URL".
+
+    (url) ->
+      @browser
+        .url(url)
+        .waitForElementVisible('body', 1000)
+
+Then "$SELECTOR" should contain "$OUTPUT".
+
+    (selector, output) ->
+      @browser
+        .assert.containsText(selector, result)
