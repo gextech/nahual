@@ -82,7 +82,17 @@ try {
       return 'require(' + JSON.stringify(moduleName) + ')';
     }).join('\n')
   }, function (success) {
-    exit(success ? 0 : 1);
+    if (success === true) {
+      exit(0);
+    }
+
+    if (success === false) {
+      exit(1);
+    }
+
+    if (typeof success === 'Number') {
+      exit(success);
+    }
   });
 } catch (e) {
   process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
