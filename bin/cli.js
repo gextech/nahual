@@ -81,7 +81,9 @@ try {
       // preprend require-syntax only
       return 'require(' + JSON.stringify(moduleName) + ')';
     }).join('\n')
-  }, exit);
+  }, function (success) {
+    exit(success ? 0 : 1);
+  });
 } catch (e) {
   process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
   exit(1);
