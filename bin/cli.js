@@ -9,9 +9,8 @@ var minimist = require('minimist'),
 
 var cwd = process.cwd(),
     argv = minimist(process.argv.slice(2), {
-      '--': true,
       boolean: ['version', 'help', 'force', 'standalone'],
-      string: ['target', 'require', 'steps', 'language', 'browser', 'hooks'],
+      string: ['target', 'require', 'execute', 'steps', 'language', 'browser', 'hooks'],
       alias: {
         h: 'help',
         F: 'force',
@@ -20,6 +19,7 @@ var cwd = process.cwd(),
         D: 'steps',
         X: 'hooks',
         R: 'require',
+        E: 'execute',
         L: 'language',
         S: 'standalone'
       }
@@ -30,7 +30,7 @@ process.name = 'nahual';
 if (argv.help) {
   console.log(function() {/**---
 Usage:
-  nahual [SRC] [DEST] [OPTIONS] [NIGHTWATCH OPTIONS] [-- COMMAND]
+  nahual [SRC] [DEST] [OPTIONS] [NIGHTWATCH OPTIONS]
 
 Options:
   -F, --force       Always download the selenium-server
@@ -39,6 +39,7 @@ Options:
   -D, --steps       Path for scanning additional steps (e.g. -d ./custom/steps)
   -X, --hooks       Load modules as external hooks (e.g. -x dayguard)
   -R, --require     Requires the given script before all steps (e.g. -p ./runtime.js)
+  -E, --execute     Execute arbitrary command before any test (e.g. -E 'python -m SimpleHTTPServer')
   -L, --language    Use a different language for all sources (e.g. -l Spanish)
   -S, --standalone  Spawn a local selenium-server
 
