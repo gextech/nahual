@@ -14,7 +14,7 @@ node_js:
 - 6
 - iojs
 script:
-- './bin/nahual --target saucelabs -a local -- python -m SimpleHTTPServer'
+- './bin/nahual --target saucelabs -a local -E "python -m SimpleHTTPServer"'
 - './bin/nahual --target saucelabs -a remote'
 - 'npm run cover'
 after_success:
