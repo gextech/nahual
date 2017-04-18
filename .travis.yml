@@ -12,7 +12,7 @@ node_js:
 - 4
 - 5
 - 6
-- iojs
+- 7
 script:
 - './bin/nahual --target saucelabs -a local -E "python -m SimpleHTTPServer"'
 - './bin/nahual --target saucelabs -a remote'
