@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/pateketrueke/nahual.png?branch=master)](https://travis-ci.org/pateketrueke/nahual) [![NPM version](https://badge.fury.io/js/nahual.png)](http://badge.fury.io/js/nahual) [![Coverage Status](https://coveralls.io/repos/pateketrueke/nahual/badge.png?branch=master)](https://coveralls.io/r/pateketrueke/nahual?branch=master)
 
-![nagual](https://dl.dropboxusercontent.com/u/2726997/img/nagual.jpg)
+![nagual](nagual.jpg)
 
 ```
 $ npm install -g nahual
