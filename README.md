@@ -8,7 +8,7 @@
 $ npm install -g nahual
 ```
 
-**Nahual** will glue [y2nw](https://github.com/gextech/y2nw) and [nwrun](https://github.com/gextech/nwrun) for you.
+**Nahual** will glue [y2nw](https://github.com/tacoss/y2nw) and [nwrun](https://github.com/tacoss/nwrun) for you.
 
 You can install `nahual` locally as library or globally as CLI:
 

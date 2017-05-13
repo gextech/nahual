@@ -1,34 +1,38 @@
-var exit = process.exit.bind(process);
+'use strict';
 
-var pkg = require('../package.json'),
-    runner = require('../lib');
+const exit = process.exit.bind(process);
 
-var minimist = require('minimist'),
-    path = require('path'),
-    fs = require('fs');
+const pkg = require('../package.json');
+const runner = require('../lib');
 
-var cwd = process.cwd(),
-    argv = minimist(process.argv.slice(2), {
-      boolean: ['version', 'help', 'force', 'standalone'],
-      string: ['target', 'require', 'execute', 'steps', 'language', 'browser', 'hooks'],
-      alias: {
-        h: 'help',
-        F: 'force',
-        T: 'target',
-        B: 'browser',
-        D: 'steps',
-        X: 'hooks',
-        R: 'require',
-        E: 'execute',
-        L: 'language',
-        S: 'standalone'
-      }
-    });
+const minimist = require('minimist');
+const path = require('path');
+const fs = require('fs');
+
+const cwd = process.cwd();
+
+const argv = minimist(process.argv.slice(2), {
+  boolean: ['version', 'help', 'force', 'standalone'],
+  string: ['target', 'require', 'execute', 'steps', 'language', 'browser', 'hooks'],
+  alias: {
+    h: 'help',
+    F: 'force',
+    T: 'target',
+    B: 'browser',
+    D: 'steps',
+    X: 'hooks',
+    R: 'require',
+    E: 'execute',
+    L: 'language',
+    S: 'standalone',
+  },
+});
 
 process.name = 'nahual';
 
 if (argv.help) {
-  console.log(function() {/**---
+  console.log(function getHelp() {
+/**---
 Usage:
   nahual [SRC] [DEST] [OPTIONS] [NIGHTWATCH OPTIONS]
 
@@ -46,18 +50,27 @@ Options:
 The given command after -- will be spawned before running the tests.
 
 Also, Nightwatch's CLI options are fully supported as-is.
----*/}.toString().match(/---([\s\S]+)---/)[1].trim());
+---*/
+  }.toString().match(/---([\s\S]+)---/)[1].trim());
   exit();
 }
 
 if (argv.version) {
-  console.log(pkg.name + ' v' + pkg.version);
+  console.log(`${pkg.name} v${pkg.version}`);
   exit();
 }
 
-var fixedRequires = (Array.isArray(argv.require) ? argv.require : argv.require ? [argv.require] : [])
-  .map(function(file) {
-    var test = path.resolve(file);
+function toArray(value) {
+  if (!Array.isArray(value)) {
+    return value ? [value] : [];
+  }
+
+  return value;
+}
+
+const fixedRequires = toArray(argv.require)
+  .map(file => {
+    const test = path.resolve(file);
 
     if (fs.existsSync(test)) {
       return test;
@@ -70,19 +83,18 @@ try {
   process.env.NODE_ENV = process.env.NODE_ENV || 'spec';
   process.env.PORT = process.env.PORT || 8081;
 
-  var _env = [
-    'process.env.NODE_ENV=' + JSON.stringify(process.env.NODE_ENV),
-    'process.env.PORT=' + process.env.PORT
+  const _env = [
+    `process.env.NODE_ENV=${JSON.stringify(process.env.NODE_ENV)}`,
+    `process.env.PORT=${process.env.PORT}`,
   ].join('\n');
 
   runner(argv, {
     src: path.resolve(cwd, argv._[0] || 'test'),
     dest: path.resolve(cwd, argv._[1] || 'generated'),
-    prelude: _env + '\n' + fixedRequires.map(function(moduleName) {
-      // preprend require-syntax only
-      return 'require(' + JSON.stringify(moduleName) + ')';
-    }).join('\n')
-  }, function (success) {
+    // preprend require-syntax only
+    prelude: `${_env}\n${fixedRequires.map(moduleName =>
+      `require(${JSON.stringify(moduleName)})`).join('\n')}`,
+  }, success => {
     if (success === true) {
       exit(0);
     }
@@ -91,11 +103,11 @@ try {
       exit(1);
     }
 
-    if (typeof success === 'Number') {
+    if (typeof success === 'number') {
       exit(success);
     }
   });
 } catch (e) {
-  process.stderr.write('Error: ' + (e.message || e.toString()) + '\n');
+  process.stderr.write(`Error: ${e.message || e.toString()}`);
   exit(1);
 }
