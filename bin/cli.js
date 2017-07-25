@@ -13,9 +13,10 @@ const fs = require('fs');
 const cwd = process.cwd();
 
 const argv = wargs(process.argv.slice(2), {
-  booleans: ['version', 'help', 'force', 'standalone'],
+  booleans: 'VHFS',
   aliases: {
-    h: 'help',
+    V: 'version',
+    H: 'help',
     F: 'force',
     T: 'target',
     B: 'browser',
