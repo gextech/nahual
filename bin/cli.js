@@ -1,20 +1,20 @@
 'use strict';
 
+
 const exit = process.exit.bind(process);
 
 const pkg = require('../package.json');
 const runner = require('../lib');
 
-const minimist = require('minimist');
+const wargs = require('wargs');
 const path = require('path');
 const fs = require('fs');
 
 const cwd = process.cwd();
 
-const argv = minimist(process.argv.slice(2), {
-  boolean: ['version', 'help', 'force', 'standalone'],
-  string: ['target', 'require', 'execute', 'steps', 'language', 'browser', 'hooks'],
-  alias: {
+const argv = wargs(process.argv.slice(2), {
+  booleans: ['version', 'help', 'force', 'standalone'],
+  aliases: {
     h: 'help',
     F: 'force',
     T: 'target',
@@ -30,32 +30,30 @@ const argv = minimist(process.argv.slice(2), {
 
 process.name = 'nahual';
 
-if (argv.help) {
-  console.log(function getHelp() {
-/**---
+if (argv.flags.help) {
+  console.log(`
 Usage:
   nahual [SRC] [DEST] [OPTIONS] [NIGHTWATCH OPTIONS]
 
 Options:
   -F, --force       Always download the selenium-server
-  -T, --target      Nightwatch's target to execute (e.g. -t integration)
-  -B, --browser     Use a different browser for tests (e.g. -b safari)
-  -D, --steps       Path for scanning additional steps (e.g. -d ./custom/steps)
-  -X, --hooks       Load modules as external hooks (e.g. -x dayguard)
-  -R, --require     Requires the given script before all steps (e.g. -p ./runtime.js)
+  -T, --target      Nightwatch's target to execute (e.g. -T integration)
+  -B, --browser     Use a different browser for tests (e.g. -B safari)
+  -D, --steps       Path for scanning additional steps (e.g. -D ./custom/steps)
+  -X, --hooks       Load modules as external hooks (e.g. -X dayguard)
+  -R, --require     Requires the given script before all steps (e.g. -R ./runtime.js)
   -E, --execute     Execute arbitrary command before any test (e.g. -E 'python -m SimpleHTTPServer')
-  -L, --language    Use a different language for all sources (e.g. -l Spanish)
+  -L, --language    Use a different language for all sources (e.g. -L Spanish)
   -S, --standalone  Spawn a local selenium-server
 
 The given command after -- will be spawned before running the tests.
 
 Also, Nightwatch's CLI options are fully supported as-is.
----*/
-  }.toString().match(/---([\s\S]+)---/)[1].trim());
+`.trim());
   exit();
 }
 
-if (argv.version) {
+if (argv.flags.version) {
   console.log(`${pkg.name} v${pkg.version}`);
   exit();
 }
@@ -68,7 +66,7 @@ function toArray(value) {
   return value;
 }
 
-const fixedRequires = toArray(argv.require)
+const fixedRequires = toArray(argv.flags.require)
   .map(file => {
     const test = path.resolve(file);
 
@@ -88,7 +86,7 @@ try {
     `process.env.PORT=${process.env.PORT}`,
   ].join('\n');
 
-  runner(argv, {
+  runner(argv.flags, {
     src: path.resolve(cwd, argv._[0] || 'test'),
     dest: path.resolve(cwd, argv._[1] || 'generated'),
     // preprend require-syntax only
